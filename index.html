@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Read CSV file with angular</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.min.css">
+</head>
+
+<body>
+<html ng-app="csv-upload">
+
+<body ng-controller="MainCtrl">
+<h1>{{title}}</h1>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Launch modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Upload CSV</h4>
+            </div>
+            <div class="modal-body">
+                <input type="file" data-method="ctrlFn" file-reader="fileContent" file-name="fileName"/>
+                <table class="table table-striped">
+                    <thead>
+                    <th>FIRST_NAME</th>
+                    <th>LAST_NAME</th>
+                    <th>EMAIL</th>
+                    <th>CLIENT_ID</th>
+                    <th>HEALTH_PLAN</th>
+                    <th>ROLE</th>
+                    <th></th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="line in lines track by $index" ng-include="getTemplate(line)">
+                    </tr>
+                    </tbody>
+                </table>
+                <script type="text/ng-template" id="display">
+                    <td>{{line.FIRST_NAME}}</td>
+                    <td>{{line.LAST_NAME}}</td>
+                    <td>{{line.EMAIL}}</td>
+                    <td>{{line.CLIENT_ID}}</td>
+                    <td>{{line.HEALTH_PLAN}}</td>
+                    <td>{{line.ROLE}}</td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="editClientDetail(line)">Edit</button>
+                    </td>
+                </script>
+                <script type="text/ng-template" id="edit">
+                    <td><input class="form-control" type="text" ng-model="selected.FIRST_NAME"/></td>
+                    <td><input class="form-control" type="text" ng-model="selected.LAST_NAME"/></td>
+                    <td><input class="form-control" type="text" ng-model="selected.EMAIL"/></td>
+                    <td><input class="form-control" type="text" ng-model="selected.CLIENT_ID"/></td>
+                    <td><input class="form-control" type="text" ng-model="selected.HEALTH_PLAN"/></td>
+                    <td><input class="form-control" type="text" ng-model="selected.ROLE"/></td>
+                    <td>
+                        <button class="btn btn-primary" ng-click="saveClientDetail($index)">Save</button>
+                        <button class="btn btn-default" ng-click="reset()">Cancel</button>
+                    </td>
+                </script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="postJsonData()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js'></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/ng-table/1.0.0/ng-table.min.js'></script>
+
+<script src="js/index.js"></script>
+
+</body>
+</html>
