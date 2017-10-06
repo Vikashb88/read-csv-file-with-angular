@@ -100,6 +100,7 @@ app.controller('MainCtrl', function ($scope, $timeout) {
 
     // gets the template to ng-include for a table row / item
     $scope.getTemplate = function (clientDetail) {
+        console.log(clientDetail);
         if (clientDetail.CLIENT_ID === $scope.selected.CLIENT_ID) {
             return 'edit';
         }
@@ -136,20 +137,22 @@ app.controller('MainCtrl', function ($scope, $timeout) {
      * Post the JSON data
      */
     $scope.postJsonData = function () {
-        $scope.fileInfo = {
-            STG_EXT_USER_FILE_INFO: {
-                FILE_NAME: $scope.fileName
-            }
-        };
+        if ($scope.clientForm.$valid) {
+            $scope.fileInfo = {
+                STG_EXT_USER_FILE_INFO: {
+                    FILE_NAME: $scope.fileName
+                }
+            };
 
-        $scope.userInfo = {
-            STG_EXT_USER_INFO: $scope.lines
-        };
+            $scope.userInfo = {
+                STG_EXT_USER_INFO: $scope.lines
+            };
 
-        $scope.finalObject = {
-            INSERT_STG_USER: angular.extend($scope.fileInfo, $scope.userInfo)
-        };
-        console.log(angular.toJson($scope.finalObject, true));
+            $scope.finalObject = {
+                INSERT_STG_USER: angular.extend($scope.fileInfo, $scope.userInfo)
+            };
+            alert(angular.toJson($scope.finalObject, true));
+        }
     }
 
 });
