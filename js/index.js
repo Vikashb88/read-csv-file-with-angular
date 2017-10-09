@@ -6,6 +6,9 @@ app.controller('MainCtrl', function ($scope, $timeout) {
     $scope.lines = [];
     $scope.selected = {};
     $scope.fileName = '';
+    $scope.fileDetails = {};
+    $scope.displayFileDetails = [];
+    $scope.active = true;
 
     $scope.ctrlFn = function (arg) {
         $scope.processData(arg);
@@ -98,34 +101,6 @@ app.controller('MainCtrl', function ($scope, $timeout) {
         $scope.lines = objArray;
     }
 
-    // gets the template to ng-include for a table row / item
-    $scope.getTemplate = function (clientDetail) {
-        console.log(clientDetail);
-        if (clientDetail.CLIENT_ID === $scope.selected.CLIENT_ID) {
-            return 'edit';
-        }
-        else {
-            return 'display';
-        }
-    };
-
-    /**
-     * Edit the selected Client Details
-     * @param clientDetail
-     */
-    $scope.editClientDetail = function (clientDetail) {
-        $scope.selected = angular.copy(clientDetail);
-    };
-
-    /**
-     * Update the edited client details
-     * @param idx
-     */
-    $scope.saveClientDetail = function (idx) {
-        $scope.lines[idx] = angular.copy($scope.selected);
-        $scope.reset();
-    };
-
     /**
      * Reset Client Details
      */
@@ -140,7 +115,7 @@ app.controller('MainCtrl', function ($scope, $timeout) {
         if ($scope.clientForm.$valid) {
             $scope.fileInfo = {
                 STG_EXT_USER_FILE_INFO: {
-                    FILE_NAME: $scope.fileName
+                    FILE_NAME: $scope.fileDetails.name
                 }
             };
 
@@ -152,6 +127,10 @@ app.controller('MainCtrl', function ($scope, $timeout) {
                 INSERT_STG_USER: angular.extend($scope.fileInfo, $scope.userInfo)
             };
             alert(angular.toJson($scope.finalObject, true));
+            $scope.fileDetails.uploadedBy = 'vikash';
+            $scope.fileDetails.uploadDate = new Date();
+            $scope.fileDetails.totalRecords = $scope.lines.length;
+            $scope.displayFileDetails.push($scope.fileDetails);
         }
     }
 
@@ -166,7 +145,7 @@ app.directive('fileReader', function () {
         scope: {
             fileReader: "=",
             fromDirectiveFn: '=method',
-            fileName: "="
+            fileDetails: "="
         },
         link: function (scope, element) {
             $(element).on('change', function (changeEvent) {
@@ -178,7 +157,7 @@ app.directive('fileReader', function () {
                         scope.$apply(function () {
                             scope.fileReader = contents;
                             scope.fromDirectiveFn(contents);
-                            scope.fileName = files[0].name;
+                            scope.fileDetails = files[0];
                         });
                     };
                     r.readAsText(files[0]);

@@ -1,10 +1,168 @@
 body {
-  padding: 5%;
+    padding: 5%;
 }
 
 .content {
-  background: #efefef;
-  padding: 20px;
-  margin-top: 25px;
-  line-height: 1.8;
+    background: #efefef;
+    padding: 20px;
+    margin-top: 25px;
+    line-height: 1.8;
 }
+
+.input-file-container {
+
+    position: relative;
+
+    width: 100px;
+
+    outline: none;
+
+}
+
+.input-file-trigger {
+
+    display: block;
+
+    color: #39D2B4;
+
+    font-size: 1em;
+
+    transition: all .4s;
+
+    cursor: pointer;
+
+    width: 100px;
+
+    text-decoration: underline;
+
+    outline: none;
+
+}
+
+.input-file {
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100px;
+
+    opacity: 0;
+
+    cursor: pointer;
+
+}
+
+.input-file:hover + .input-file-trigger,
+.input-file:focus + .input-file-trigger,
+.input-file-trigger:hover,
+.input-file-trigger:focus {
+
+    color: #39D2B4;
+
+}
+
+.client-list-header {
+
+    background: #f3f3f3;
+
+}
+
+.client-list-header > div {
+
+    border-right: 1px solid #ccc;
+
+    padding: 15px;
+
+}
+
+.client-list-header > div:last-child {
+
+    border: none;
+
+}
+
+.pad-0 {
+
+    padding: 0;
+
+}
+
+.client-list-wrapper {
+
+    border-bottom: 1px solid #ccc;
+
+    margin-bottom: 7px;
+
+    padding: 7px 0 0 0;
+
+}
+
+.slideDown {
+
+    border: 10px solid #d0d0ce;
+
+    padding: 5px;
+
+}
+
+.expandcollapse-heading-collapsed .arrow {
+
+    width: 0;
+
+    height: 0;
+
+    border-top: 5px solid transparent;
+
+    border-bottom: 5px solid transparent;
+
+    border-left: 5px solid #d0d0ce;
+
+    margin-top: 5px;
+
+    margin-right: 10px;
+
+    float: left;
+
+}
+
+.expandcollapse-heading-expanded .arrow {
+
+    width: 0;
+
+    height: 0;
+
+    border-left: 5px solid transparent;
+
+    border-right: 5px solid transparent;
+
+    border-top: 5px solid #d0d0ce;
+
+    margin-top: 5px;
+
+    margin-right: 10px;
+
+    float: left;
+
+}
+
+.client-list {
+
+    cursor: pointer;
+
+}
+
+.glyphicon-ok {
+    color: green;
+}
+
+.glyphicon-envelope {
+    color: darkgoldenrod;
+}
+
+.glyphicon-remove {
+    color: red;
+}
+
